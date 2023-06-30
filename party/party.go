@@ -1,11 +1,20 @@
 package party
 
-import "fmt"
+import (
+	"fmt"
 
-type Party struct{}
+	"antique/board"
+)
+
+// Партия (игра, катка)
+type Party struct {
+	board *board.Board
+}
 
 func New() *Party {
-	return &Party{}
+	return &Party{
+		board: board.New(),
+	}
 }
 
 func (p *Party) Process() {
