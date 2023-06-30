@@ -7,15 +7,19 @@ import (
 
 // Доска, карта местности (стол)
 type Board struct {
-	gateStack    *handy.Deck
-	clueStack    *handy.Deck
-	monsterStack *handy.Deck
+	gateStack      *handy.Deck
+	clueStack      *handy.Deck
+	monsterStack   *handy.Deck
+	expeditionDeck *handy.Deck
+	doomTrack      int
 }
 
-func New() *Board {
+func New(doomTrack int) *Board {
 	return &Board{
-		gateStack:    deck.NewGateStack(),
-		clueStack:    deck.NewClueStack(),
-		monsterStack: deck.NewMonsterStack(),
+		gateStack:      deck.NewGateStack(),
+		clueStack:      deck.NewClueStack(),
+		monsterStack:   deck.NewMonsterStack(),
+		expeditionDeck: deck.NewExpeditionDeck(),
+		doomTrack:      doomTrack,
 	}
 }

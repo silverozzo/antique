@@ -5,6 +5,8 @@ import (
 
 	"antique/board"
 	"antique/elder"
+	"antique/handy"
+	"antique/party/deck"
 	"antique/player"
 )
 
@@ -17,17 +19,23 @@ type Party struct {
 	board         *board.Board
 	elder         *elder.Elder
 	investigators []player.Investigator
+	spellDeck     *handy.Deck
+	conditionDeck *handy.Deck
+	mythDeck      *handy.Deck
 }
 
-func New() *Party {
+func New(numberOfPlayers int, doomTrack int) *Party {
 	party := Party{
-		board: board.New(),
-		elder: elder.New(),
+		board:         board.New(doomTrack),
+		elder:         elder.New(),
+		spellDeck:     deck.NewSpellDeck(),
+		conditionDeck: deck.NewConsitionDeck(),
+		mythDeck:      deck.NewMythDeck(),
 	}
 
 	firstIsLead := true
-	party.investigators = make([]player.Investigator, NumberOfPlayers)
-	for i := 0; i < NumberOfPlayers; i++ {
+	party.investigators = make([]player.Investigator, numberOfPlayers)
+	for i := 0; i < numberOfPlayers; i++ {
 		party.investigators[i] = *player.NewInvestigator(firstIsLead)
 
 		firstIsLead = false
