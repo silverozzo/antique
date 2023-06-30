@@ -7,11 +7,15 @@ import (
 
 // Доска, карта местности (стол)
 type Board struct {
-	gateStack *handy.Deck
+	gateStack    *handy.Deck
+	clueStack    *handy.Deck
+	monsterStack *handy.Deck
 }
 
 func New() *Board {
 	return &Board{
-		gateStack: deck.NewGateStack(),
+		gateStack:    deck.NewGateStack(),
+		clueStack:    deck.NewClueStack(),
+		monsterStack: deck.NewMonsterStack(),
 	}
 }
