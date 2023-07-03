@@ -2,9 +2,25 @@ package deck
 
 import "antique/handy"
 
-func NewMonsterStack() *handy.Deck {
-	one := handy.Card{}
-	deck := handy.NewDeck([]handy.Card{one})
+type MonsterToken struct {
+	handy.TokenInterface
+}
 
-	return deck
+type MonsterStack struct {
+	handy.StackInterface
+}
+
+func newMonster(name string) *MonsterToken {
+	return &MonsterToken{
+		handy.NewToken(handy.Side{MonsterNameTag: name}, handy.Side{}),
+	}
+}
+
+func NewMonsterStack() *MonsterStack {
+	one := newMonster("Культист")
+	deck := MonsterStack{
+		handy.NewStack([]handy.TokenInterface{one}),
+	}
+
+	return &deck
 }

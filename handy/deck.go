@@ -2,11 +2,32 @@ package handy
 
 // Колода игральных карт
 type Deck struct {
-	cards []Card
+	DeckInterface
+
+	cards []CardInterface
 }
 
-func NewDeck(cards []Card) *Deck {
+func NewDeck(cards []CardInterface) DeckInterface {
 	return &Deck{
 		cards: cards,
 	}
+}
+
+func (deck *Deck) SetCards(cards []CardInterface) {
+	deck.cards = cards
+}
+
+func (deck *Deck) AddCardToBottom(card CardInterface) {
+	deck.cards = append(deck.cards, card)
+}
+
+func (deck *Deck) DiscardTop() CardInterface {
+	if len(deck.cards) == 0 {
+		panic("Колода пустая")
+	}
+
+	discarded := deck.cards[0]
+	deck.cards = deck.cards[1:]
+
+	return discarded
 }

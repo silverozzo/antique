@@ -2,9 +2,18 @@ package deck
 
 import "antique/handy"
 
-func NewConsitionDeck() *handy.Deck {
-	one := handy.Card{}
-	deck := handy.NewDeck([]handy.Card{one})
+type ConditionCard struct {
+	handy.CardInterface
+}
 
-	return deck
+type ConditionDeck struct {
+	handy.DeckInterface
+}
+
+func NewConsitionDeck() *ConditionDeck {
+	deck := ConditionDeck{
+		handy.NewDeck([]handy.CardInterface{}),
+	}
+
+	return &deck
 }

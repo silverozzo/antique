@@ -2,9 +2,27 @@ package deck
 
 import "antique/handy"
 
-func NewClueStack() *handy.Deck {
-	one := handy.Card{}
-	deck := handy.NewDeck([]handy.Card{one})
+type ClueToken struct {
+	handy.TokenInterface
+}
 
-	return deck
+type ClueStack struct {
+	handy.StackInterface
+}
+
+func newClue(locName string) *ClueToken {
+	clue := ClueToken{
+		handy.NewToken(handy.Side{LocationTag: locName}, handy.Side{}),
+	}
+
+	return &clue
+}
+
+func NewClueStack() *ClueStack {
+	one := newClue("Побережье")
+	stack := ClueStack{
+		handy.NewStack([]handy.TokenInterface{one}),
+	}
+
+	return &stack
 }

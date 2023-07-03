@@ -2,9 +2,18 @@ package deck
 
 import "antique/handy"
 
-func NewSpellDeck() *handy.Deck {
-	one := handy.Card{}
-	deck := handy.NewDeck([]handy.Card{one})
+type SpellCard struct {
+	handy.CardInterface
+}
 
-	return deck
+type SpellDeck struct {
+	handy.DeckInterface
+}
+
+func NewSpellDeck() *SpellDeck {
+	deck := SpellDeck{
+		handy.NewDeck([]handy.CardInterface{}),
+	}
+
+	return &deck
 }

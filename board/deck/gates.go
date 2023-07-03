@@ -1,13 +1,34 @@
 package deck
 
-import "antique/handy"
+import (
+	"antique/handy"
+)
+
+type GateToken struct {
+	handy.TokenInterface
+}
+
+type GateStack struct {
+	handy.StackInterface
+}
+
+func newGate(locName string) *GateToken {
+	gate := GateToken{
+		handy.NewToken(handy.Side{LocationTag: locName}, handy.Side{}),
+	}
+
+	return &gate
+}
 
 // Возвращает колоду врат
-func NewGateStack() *handy.Deck {
+func NewGateStack() *GateStack {
 
 	// TODO пока хрен знает как сделать... болваночно
-	one := handy.Card{}
-	deck := handy.NewDeck([]handy.Card{one})
+	one := newGate("Лондон")
 
-	return deck
+	stack := GateStack{
+		handy.NewStack([]handy.TokenInterface{one}),
+	}
+
+	return &stack
 }

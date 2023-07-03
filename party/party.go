@@ -5,7 +5,6 @@ import (
 
 	"antique/board"
 	"antique/elder"
-	"antique/handy"
 	"antique/party/deck"
 	"antique/player"
 )
@@ -19,9 +18,9 @@ type Party struct {
 	board         *board.Board
 	elder         *elder.Elder
 	investigators []player.Investigator
-	spellDeck     *handy.Deck
-	conditionDeck *handy.Deck
-	mythDeck      *handy.Deck
+	spellDeck     *deck.SpellDeck
+	conditionDeck *deck.ConditionDeck
+	mythDeck      *deck.MythDeck
 }
 
 func New(numberOfPlayers int, doomTrack int) *Party {

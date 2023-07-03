@@ -2,9 +2,25 @@ package deck
 
 import "antique/handy"
 
-func NewExpeditionDeck() *handy.Deck {
-	one := handy.Card{}
-	deck := handy.NewDeck([]handy.Card{one})
+type ExpeditionCard struct {
+	handy.CardInterface
+}
 
-	return deck
+type ExpeditionDeck struct {
+	handy.DeckInterface
+}
+
+func newExpeditionCard(locName string) *ExpeditionCard {
+	return &ExpeditionCard{
+		handy.NewCard(handy.Side{}, handy.Side{LocationTag: locName}),
+	}
+}
+
+func NewExpeditionDeck() *ExpeditionDeck {
+	one := newExpeditionCard("Глушь")
+	deck := ExpeditionDeck{
+		handy.NewDeck([]handy.CardInterface{one}),
+	}
+
+	return &deck
 }
