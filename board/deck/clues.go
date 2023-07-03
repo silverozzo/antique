@@ -26,3 +26,7 @@ func NewClueStack() *ClueStack {
 
 	return &stack
 }
+
+func (clue *ClueToken) GetLocationName() string {
+	return clue.GetFront()[LocationTag]
+}

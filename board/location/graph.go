@@ -24,6 +24,10 @@ func NewGraph() *Graph {
 	}
 }
 
+func (graph *Graph) GetList() []*Location {
+	return graph.locations
+}
+
 func (graph *Graph) GetLocationByName(name string) *Location {
 	for _, item := range graph.locations {
 		if item.name == name {

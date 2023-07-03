@@ -14,6 +14,7 @@ type DeckInterface interface {
 	SetCards([]CardInterface)
 	AddCardToBottom(CardInterface)
 	DiscardTop() CardInterface
+	GetBackSideFromTop() Side
 }
 
 type StackInterface interface {

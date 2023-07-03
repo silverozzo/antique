@@ -19,7 +19,7 @@ type Board struct {
 	locations      *location.Graph
 }
 
-func New(doomTrack int) *Board {
+func New(doomTrack int, startGates int, startClues int) *Board {
 	board := Board{
 		gateStack:      deck.NewGateStack(),
 		clueStack:      deck.NewClueStack(),
@@ -27,24 +27,27 @@ func New(doomTrack int) *Board {
 		expeditionDeck: deck.NewExpeditionDeck(),
 		assetDeck:      deck.NewAssetDeck(),
 		doomTrack:      doomTrack,
-		omen:           &omen.Omen{},
+		omen:           omen.New(),
 		locations:      location.NewGraph(),
 	}
 
-	board.OpenTopGate()
+	board.OpenGates(startGates)
 	board.FillReserves()
+	board.UpdateExpedition()
+	board.PlaceClues(startClues)
 
 	return &board
 }
 
-// Открываем ворота с верху стопки врат
-func (board *Board) OpenTopGate() {
-	gate := board.gateStack.DiscardTop().(*deck.GateToken)
-	monster := board.monsterStack.DiscardRandom().(*deck.MonsterToken)
+func (board *Board) OpenGates(count int) {
+	for i := 0; i < count; i++ {
+		gate := board.gateStack.DiscardTop().(*deck.GateToken)
+		monster := board.monsterStack.DiscardRandom().(*deck.MonsterToken)
 
-	location := board.locations.GetLocationByName(gate.GetLocationName())
-	location.SetGate(gate)
-	location.AddMonster(monster)
+		location := board.locations.GetLocationByName(gate.GetLocationName())
+		location.SetGate(gate)
+		location.AddMonster(monster)
+	}
 }
 
 func (board *Board) FillReserves() {
@@ -52,5 +55,28 @@ func (board *Board) FillReserves() {
 		if item == nil {
 			board.reserve[i] = board.assetDeck.DiscardTop().(*deck.AssetCard)
 		}
+	}
+}
+
+func (board *Board) UpdateExpedition() {
+	for _, item := range board.locations.GetList() {
+		item.UnsetExpedition()
+	}
+
+	side := board.expeditionDeck.GetBackSideFromTop()
+	locName, ok := side[deck.LocationTag]
+	if !ok {
+		panic("на рубашке карты экспедиции не определена локация")
+	}
+
+	loc := board.locations.GetLocationByName(locName)
+	loc.SetExpedition()
+}
+
+func (board *Board) PlaceClues(count int) {
+	for i := 0; i < count; i++ {
+		clue := board.clueStack.DiscardRandom().(*deck.ClueToken)
+		loc := board.locations.GetLocationByName(clue.GetLocationName())
+		loc.SetClue(clue)
 	}
 }

@@ -31,3 +31,11 @@ func (deck *Deck) DiscardTop() CardInterface {
 
 	return discarded
 }
+
+func (deck *Deck) GetBackSideFromTop() Side {
+	if len(deck.cards) == 0 {
+		panic("Колода пустая")
+	}
+
+	return deck.cards[0].GetBack()
+}
