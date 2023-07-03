@@ -38,10 +38,12 @@ func New(doomTrack int) *Board {
 // Открываем ворота с верху стопки врат
 func (board *Board) OpenTopGate() {
 	// Берем верхнюю карту со стопки врат
-	// gate := board.gateStack.DiscardTop()
-	// monster := board.monsterStack.DiscardTop()
+	gate := board.gateStack.DiscardTop().(*deck.GateToken)
+	monster := board.monsterStack.DiscardTop().(*deck.MonsterToken)
 
-	// location := board.locations.GetLocationByName(gate.GetFront().GetLocationName())
+	location := board.locations.GetLocationByName(gate.GetLocationName())
+	location.SetGate(gate)
+	location.AddMonster(monster)
 
 	// panic("not implemented yet")
 }

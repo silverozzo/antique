@@ -12,14 +12,6 @@ type GateStack struct {
 	handy.StackInterface
 }
 
-func newGate(locName string) *GateToken {
-	gate := GateToken{
-		handy.NewToken(handy.Side{LocationTag: locName}, handy.Side{}),
-	}
-
-	return &gate
-}
-
 // Возвращает колоду врат
 func NewGateStack() *GateStack {
 
@@ -31,4 +23,16 @@ func NewGateStack() *GateStack {
 	}
 
 	return &stack
+}
+
+func newGate(locName string) *GateToken {
+	gate := GateToken{
+		handy.NewToken(handy.Side{LocationTag: locName}, handy.Side{}),
+	}
+
+	return &gate
+}
+
+func (gate *GateToken) GetLocationName() string {
+	return gate.GetFront()[LocationTag]
 }

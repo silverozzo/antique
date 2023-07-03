@@ -1,6 +1,8 @@
 package location
 
-import "antique/handy"
+import (
+	"antique/board/deck"
+)
 
 type locationSpace int
 
@@ -15,8 +17,8 @@ type Location struct {
 	name      string
 	space     locationSpace
 	neighbors []*Location
-	gate      *handy.Card
-	monsters  []*handy.Card
+	gate      *deck.GateToken
+	monsters  []*deck.MonsterToken
 }
 
 func NewLocation(name string, space locationSpace) *Location {
@@ -30,10 +32,10 @@ func (loc *Location) SetNeigbors(neighbors []*Location) {
 	loc.neighbors = neighbors
 }
 
-func (loc *Location) SetGate(gate *handy.Card) {
+func (loc *Location) SetGate(gate *deck.GateToken) {
 	loc.gate = gate
 }
 
-func (loc *Location) AddMonster(monster *handy.Card) {
+func (loc *Location) AddMonster(monster *deck.MonsterToken) {
 	loc.monsters = append(loc.monsters, monster)
 }
