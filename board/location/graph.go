@@ -2,25 +2,32 @@ package location
 
 type Graph struct {
 	locations []*Location
+	routes    []*Route
 }
 
 func NewGraph() *Graph {
 	londonLoc := NewLocation("Лондон", City)
-	oceanLoc := NewLocation("Побережье", Ocean)
+	seaLoc := NewLocation("Побережье", Sea)
 	wildLoc := NewLocation("Глушь", Wild)
 
-	londonLoc.SetNeigbors([]*Location{oceanLoc, wildLoc})
-	oceanLoc.SetNeigbors([]*Location{londonLoc})
-	wildLoc.SetNeigbors([]*Location{londonLoc})
+	routes := []*Route{
+		0: NewRoute(londonLoc, seaLoc, ShipPath),
+		1: NewRoute(londonLoc, wildLoc, TrainPath),
+	}
 
-	locations := [3]*Location{
+	londonLoc.SetRoutes([]*Route{routes[0], routes[1]})
+	seaLoc.SetRoutes([]*Route{routes[0]})
+	wildLoc.SetRoutes([]*Route{routes[1]})
+
+	locations := []*Location{
 		londonLoc,
-		oceanLoc,
+		seaLoc,
 		wildLoc,
 	}
 
 	return &Graph{
-		locations: locations[:],
+		locations: locations,
+		routes:    routes,
 	}
 }
 

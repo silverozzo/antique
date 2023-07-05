@@ -80,3 +80,9 @@ func (board *Board) PlaceClues(count int) {
 		loc.SetClue(clue)
 	}
 }
+
+func (board *Board) GetNeighborsOfLocation(locName string) []*location.Location {
+	loc := board.locations.GetLocationByName(locName)
+
+	return loc.GetNeighbors()
+}

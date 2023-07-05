@@ -16,6 +16,7 @@ const (
 )
 
 var (
+	// Условия усложнения от количества игроков
 	References = map[int]map[string]int{
 		1: {
 			ReferenceGateTag: 1,
@@ -28,10 +29,11 @@ var (
 type Party struct {
 	board         *board.Board
 	elder         *elder.Elder
-	investigators []player.Investigator
+	investigators []*player.Investigator
 	spellDeck     *deck.SpellDeck
 	conditionDeck *deck.ConditionDeck
 	mythDeck      *deck.MythDeck
+	players       []*player.Player
 }
 
 func New(numberOfPlayers int, doomTrack int) *Party {
@@ -44,9 +46,13 @@ func New(numberOfPlayers int, doomTrack int) *Party {
 	}
 
 	firstIsLead := true
-	party.investigators = make([]player.Investigator, numberOfPlayers)
+	party.investigators = make([]*player.Investigator, numberOfPlayers)
+	party.players = make([]*player.Player, numberOfPlayers)
 	for i := 0; i < numberOfPlayers; i++ {
-		party.investigators[i] = *player.NewInvestigator(firstIsLead)
+		investigator := player.NewInvestigator(firstIsLead)
+
+		party.investigators[i] = investigator
+		party.players[i] = player.NewPlayer(investigator)
 
 		firstIsLead = false
 	}
@@ -76,5 +82,12 @@ func (p *Party) Process() {
 }
 
 func (p *Party) checkFinal() bool {
+	// todo переделать на условие от Древнего
 	return true
+}
+
+func (p *Party) actionPhase() {
+	// for _, item := range p.players {
+	// 	// item.
+	// }
 }
