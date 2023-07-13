@@ -2,12 +2,7 @@ package player
 
 import "antique/board"
 
-var (
-	actionCounter = 0
-	actionMap     = map[int]func(*board.Board){}
-)
-
-// Игрок... или что-то за него
+// Player Игрок... или что-то за него
 type Player struct {
 	investigator *Investigator
 }

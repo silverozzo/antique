@@ -7,8 +7,7 @@ import (
 type SpaceType int
 
 const (
-	Undefined SpaceType = iota
-	City
+	City SpaceType = iota
 	Sea
 	Wild
 )

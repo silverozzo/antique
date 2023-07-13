@@ -1,6 +1,6 @@
 package handy
 
-// Колода игральных карт
+// Deck Колода игральных карт
 type Deck struct {
 	DeckInterface
 

@@ -1,6 +1,6 @@
 package handy
 
-// Игральная карта
+// Card Игральная карта
 type Card struct {
 	CardInterface
 

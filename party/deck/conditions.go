@@ -2,17 +2,17 @@ package deck
 
 import "antique/handy"
 
-// Тип карты состояний сыщиков
+// ConditionCard Тип карты состояний сыщиков
 type ConditionCard struct {
 	handy.CardInterface
 }
 
-// Колода карт состояний в запасе
+// ConditionDeck Колода карт состояний в запасе
 type ConditionDeck struct {
 	handy.DeckInterface
 }
 
-func NewConsitionDeck() *ConditionDeck {
+func NewConditionDeck() *ConditionDeck {
 	deck := ConditionDeck{
 		handy.NewDeck([]handy.CardInterface{}),
 	}

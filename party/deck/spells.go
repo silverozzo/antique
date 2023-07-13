@@ -2,12 +2,12 @@ package deck
 
 import "antique/handy"
 
-// Тип карт заклинаний
+// SpellCard Тип карт заклинаний
 type SpellCard struct {
 	handy.CardInterface
 }
 
-// Колода карт закдлинаний в запасе
+// SpellDeck Колода карт закдлинаний в запасе
 type SpellDeck struct {
 	handy.DeckInterface
 }

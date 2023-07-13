@@ -2,12 +2,12 @@ package deck
 
 import "antique/handy"
 
-// Тип карты мифов
+// MythCard Тип карты мифов
 type MythCard struct {
 	handy.CardInterface
 }
 
-// Колода карт мифов, подготовленная к партии
+// MythDeck Колода карт мифов, подготовленная к партии
 type MythDeck struct {
 	handy.DeckInterface
 }

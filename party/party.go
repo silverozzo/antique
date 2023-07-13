@@ -10,13 +10,12 @@ import (
 )
 
 const (
-	NumberOfPlayers  = 1
 	ReferenceGateTag = "gates"
 	ReferenceClueTag = "clues"
 )
 
 var (
-	// Условия усложнения от количества игроков
+	// References Условия усложнения от количества игроков
 	References = map[int]map[string]int{
 		1: {
 			ReferenceGateTag: 1,
@@ -25,7 +24,7 @@ var (
 	}
 )
 
-// Партия (игра, катка)
+// Party Партия (игра, катка)
 type Party struct {
 	board         *board.Board
 	elder         *elder.Elder
@@ -41,7 +40,7 @@ func New(numberOfPlayers int, doomTrack int) *Party {
 		board:         board.New(doomTrack, References[numberOfPlayers][ReferenceGateTag], References[numberOfPlayers][ReferenceClueTag]),
 		elder:         elder.New(),
 		spellDeck:     deck.NewSpellDeck(),
-		conditionDeck: deck.NewConsitionDeck(),
+		conditionDeck: deck.NewConditionDeck(),
 		mythDeck:      deck.NewMythDeck(),
 	}
 

@@ -6,7 +6,7 @@ import (
 	"antique/board/omen"
 )
 
-// Доска, карта местности (стол)
+// Board Доска, карта местности (стол)
 type Board struct {
 	gateStack      *deck.GateStack
 	clueStack      *deck.ClueStack
@@ -44,9 +44,9 @@ func (board *Board) OpenGates(count int) {
 		gate := board.gateStack.DiscardTop().(*deck.GateToken)
 		monster := board.monsterStack.DiscardRandom().(*deck.MonsterToken)
 
-		location := board.locations.GetLocationByName(gate.GetLocationName())
-		location.SetGate(gate)
-		location.AddMonster(monster)
+		loc := board.locations.GetLocationByName(gate.GetLocationName())
+		loc.SetGate(gate)
+		loc.AddMonster(monster)
 	}
 }
 

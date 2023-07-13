@@ -12,7 +12,7 @@ type GateStack struct {
 	handy.StackInterface
 }
 
-// Возвращает колоду врат
+// NewGateStack Возвращает колоду врат
 func NewGateStack() *GateStack {
 
 	// TODO пока хрен знает как сделать... болваночно

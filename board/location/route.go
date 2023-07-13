@@ -3,8 +3,7 @@ package location
 type PathType int
 
 const (
-	UnchartedPath PathType = iota
-	TrainPath
+	TrainPath PathType = iota
 	ShipPath
 )
 
