@@ -13,13 +13,26 @@ func NewPlayer(investigator *Investigator) *Player {
 	}
 }
 
-func (pl *Player) Travel(board *board.Board, destName string) {
-	moves := board.GetNeighborsOfLocation(pl.investigator.locationName)
-	for _, item := range moves {
-		if item.GetName() == destName {
-			pl.investigator.locationName = item.GetName()
-		}
+var step = 0
+
+func (p *Player) Action(brd *board.Board, prevAct *ActionType) ActionType {
+	var act ActionType
+
+	switch step {
+	case 0:
+		act = p.investigator.BuyShipTicket(brd, prevAct)
+
+	case 1:
+		act = p.investigator.Travel(brd, "Глушь", prevAct)
+
+	case 2:
+		act = p.investigator.Rest(brd, prevAct)
+
+	default:
+		panic("игрок не значет что делать в фазу действий")
 	}
 
-	panic("не найдена соседняя локация по указанному имени: " + destName)
+	step++
+
+	return act
 }

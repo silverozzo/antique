@@ -60,10 +60,12 @@ func New(numberOfPlayers int, doomTrack int) *Party {
 }
 
 func (p *Party) Process() {
-	fmt.Println("начали процесс игры")
+	fmt.Println("процесс игры начался")
 
 	for {
+		fmt.Println("  раунд начался")
 		//	todo фаза действий
+		p.actionPhase()
 
 		//	todo фаза контакты
 
@@ -71,22 +73,34 @@ func (p *Party) Process() {
 
 		//	todo проверка окончания игры
 		if p.checkFinal() {
-			fmt.Println("наступил финал партии")
+			fmt.Println("    финал партии наступил")
 
 			break
 		}
+
+		fmt.Println("  раунд закончился")
 	}
 
-	fmt.Println("закончили процесс игры")
+	fmt.Println("процесс игры закончился")
 }
 
+var finalStep = 0
 func (p *Party) checkFinal() bool {
 	// todo переделать на условие от Древнего
-	return true
+	if finalStep >= 2 {
+		return true
+	}
+
+	finalStep++
+
+	return false
 }
 
 func (p *Party) actionPhase() {
-	// for _, item := range p.players {
-	// 	// item.
-	// }
+	fmt.Println("    фаза действий началась")
+
+	for _, item := range p.players {
+		prev := item.Action(p.board, nil)
+		item.Action(p.board, &prev)
+	}
 }

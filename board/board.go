@@ -81,6 +81,10 @@ func (board *Board) PlaceClues(count int) {
 	}
 }
 
+func (board *Board) GetLocationByName(locName string) *location.Location {
+	return board.locations.GetLocationByName(locName)
+}
+
 func (board *Board) GetNeighborsOfLocation(locName string) []*location.Location {
 	loc := board.locations.GetLocationByName(locName)
 

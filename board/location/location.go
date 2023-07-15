@@ -83,3 +83,11 @@ func (loc *Location) DiscardClue() *deck.ClueToken {
 
 	return clue
 }
+
+func (loc *Location) IsCity() bool {
+	return loc.space == City
+}
+
+func (loc *Location) HasMonsters() bool {
+	return len(loc.monsters) > 0
+}
