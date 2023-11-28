@@ -48,7 +48,7 @@ func New(numberOfPlayers int, doomTrack int) *Party {
 	party.investigators = make([]*player.Investigator, numberOfPlayers)
 	party.players = make([]*player.Player, numberOfPlayers)
 	for i := 0; i < numberOfPlayers; i++ {
-		investigator := player.NewInvestigator(firstIsLead)
+		investigator := player.NewInvestigator(firstIsLead, "Дженни Барнс")
 
 		party.investigators[i] = investigator
 		party.players[i] = player.NewPlayer(investigator)
@@ -85,6 +85,7 @@ func (p *Party) Process() {
 }
 
 var finalStep = 0
+
 func (p *Party) checkFinal() bool {
 	// todo переделать на условие от Древнего
 	if finalStep >= 2 {
@@ -103,4 +104,6 @@ func (p *Party) actionPhase() {
 		prev := item.Action(p.board, nil)
 		item.Action(p.board, &prev)
 	}
+
+	fmt.Println("    фаза действий закончилась")
 }

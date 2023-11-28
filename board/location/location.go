@@ -88,6 +88,26 @@ func (loc *Location) IsCity() bool {
 	return loc.space == City
 }
 
+func (loc *Location) HasTrainRoutes() bool {
+	for _, item := range loc.routes {
+		if item.path == WalkPath {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (loc *Location) HasShipRoutes() bool {
+	for _, item := range loc.routes {
+		if item.path == ShipPath {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (loc *Location) HasMonsters() bool {
 	return len(loc.monsters) > 0
 }

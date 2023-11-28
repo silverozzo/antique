@@ -1,6 +1,8 @@
 package player
 
-import "antique/board"
+import (
+	"antique/board"
+)
 
 // Player Игрок... или что-то за него
 type Player struct {
@@ -13,26 +15,70 @@ func NewPlayer(investigator *Investigator) *Player {
 	}
 }
 
+var commands = []Command{
+	{
+		action: TravelAction,
+		arguments: map[string]interface{}{
+			"destination": "Глушь",
+		},
+	},
+	{
+		action: RestAction,
+	},
+	{
+		action: TravelAction,
+		arguments: map[string]interface{}{
+			"destination": "Лондон",
+		},
+	},
+	{
+		action: FocusAction,
+	},
+	{
+		action: TravelAction,
+		arguments: map[string]interface{}{
+			"destination": "Море",
+		},
+	},
+	{
+		action: RestAction,
+	},
+}
+
 var step = 0
 
 func (p *Player) Action(brd *board.Board, prevAct *ActionType) ActionType {
 	var act ActionType
 
-	switch step {
-	case 0:
-		act = p.investigator.BuyShipTicket(brd, prevAct)
+	command := commands[step]
+	step++
 
-	case 1:
-		act = p.investigator.Travel(brd, "Глушь", prevAct)
-
-	case 2:
-		act = p.investigator.Rest(brd, prevAct)
-
-	default:
-		panic("игрок не значет что делать в фазу действий")
+	if step >= len(commands) {
+		panic("не осталось возможных ходов для игрока")
 	}
 
-	step++
+	switch command.action {
+	case RestAction:
+		act = p.investigator.Rest(brd, prevAct)
+
+	case FocusAction:
+		act = p.investigator.Focus(brd, prevAct)
+
+	case PrepareForTravelAction:
+		if command.arguments["ticker"] == "train" {
+			act = p.investigator.BuyTrainTicket(brd, prevAct)
+		} else if command.arguments["ticket"] == "ship" {
+			act = p.investigator.BuyShipTicket(brd, prevAct)
+		} else {
+			panic("не определен тип билета для подготовки к путешествию")
+		}
+
+	case TravelAction:
+		act = p.investigator.Travel(brd, command.arguments["destination"].(string), prevAct)
+
+	default:
+		panic("игрок не знает как выполнить команду")
+	}
 
 	return act
 }
